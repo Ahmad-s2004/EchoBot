@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EchoBot</title>
+    <link rel="icon" type="image/x-icon" href="/chatbot.ico">
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <style>
+        body {
+            height: 100vh; 
+            display: flex;
+            justify-content: center;
+            align-items: center; 
+            background-color: #f0f0f0;
+            font-family: sans-serif
+        }
+
+        .signup-box {
+            background-color: white;
+            box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+            width: 380px;
+            padding: 20px;
+        }
+
+        .input-container {
+            position: relative;
+            margin: 20px 0;
+            width: 100%; 
+        }
+
+        input {
+            width: 100%;
+            padding: 10px 15px;
+            border: 2px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+            outline: none;
+        }
+
+        input:focus {
+            border-color: rgb(117, 117, 117);
+        }
+
+        input:focus + label,
+        input:not(:placeholder-shown) + label {
+            top: -10px;
+            left: 10px;
+            font-size: 12px;
+            color: rgb(65, 65, 65);
+        }
+
+        label {
+            position: absolute;
+            top: 12px;
+            left: 15px;
+            font-size: 16px;
+            background-color: #ffffff;
+            padding: 0px 5px;
+            color: #aaa;
+            transition: 0.3s;
+            pointer-events: none;
+            z-index: 1; 
+        }
+    </style>
+    <script>
+        function hideMessage() {
+            const successMsg = document.getElementById('successMessage');
+            if (successMsg) {
+                setTimeout(() => {
+                    successMsg.style.display = 'none';
+                }, 1000); 
+            }
+        }
+
+        function redirectToLogin() {
+            const successMsg = document.getElementById('successMessage');
+            if (successMsg && successMsg.innerText === 'User Registered Successfully') {
+                setTimeout(() => {
+                    window.location.href = '/login'; 
+                }, 1000);
+            }
+        }
+
+        function showToast() {
+    const successMsg = document.getElementById('successMessage');
+    const toast = new bootstrap.Toast(document.getElementById('liveToast'));
+
+    if (successMsg) {
+        const toastBody = document.querySelector('.toast-body');
+        const toastBox = document.getElementById('liveToast'); 
+
+        toastBody.innerText = successMsg.innerText;
+
+        toastBox.classList.remove('d-none');
+
+        toast.show();
+
+        setTimeout(() => {
+            toast.hide();
+            toastBox.classList.add('d-none');
+        }, 3000);
+    }
+}
+
+    </script>
+</head>
+<body  class="px-4" onload="hideMessage(); redirectToLogin(); showToast()">
+
+    <div class="signup-box">
+        <div class="px-2 py-4 text-center">
+            <div class="h5 mb-2">Signup</div>
+            <% if(successMessage){%>
+                <div id="successMessage" class="success-message text-danger d-none"><%= successMessage%></div>
+            <% } %>
+            <form method="POST">
+                <div class="input-container">
+                    <input type="text" id="name" name="name" placeholder=" " required>
+                    <label for="name">Name</label>
+                </div>
+                <div class="input-container">
+                    <input type="email" id="email" name="email" placeholder=" " required>
+                    <label for="email">Email</label>
+                </div>
+                <div class="input-container">
+                    <input type="password" id="password" name="password" placeholder=" " required>
+                    <label for="password">Password</label>
+                </div>
+                <button class="btn btn-success w-100">Register</button>
+            </form>
+            <div class="mt-2">Already have an account? <a href="login" class="text-decoration-none">Login</a></div>
+        </div>
+
+        <div class="toast-container position-fixed bottom-0 end-0 p-3">
+            <div id="liveToast" class="toast toast-box d-none" role="alert" aria-live="assertive" aria-atomic="true">
+                <div class="bg-danger pt-1"></div>
+                <div class="toast-body"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="../js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
