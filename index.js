@@ -20,7 +20,7 @@ app.use(express.urlencoded({ extended: true }));
 connectDB();
 
 app.use(express.static('public'));
-app.use(express.static('assets'));
+app.use('/assets', express.static(path.join(__dirname, 'views/assets')));
 
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
