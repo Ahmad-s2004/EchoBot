@@ -1,7 +1,7 @@
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const passport = require('passport');
 require('dotenv').config();
-const jwt = require('jsonwebtoken')
+const jwt = require('jsonwebtoken');
 const { User } = require('./db'); 
 
 let passportFunction = () => {
@@ -18,7 +18,7 @@ let passportFunction = () => {
               ? profile.emails[0].value 
               : null;
 
-          let user = await User.findOne({ googleId: profile.id });
+          let user = await User.findOne({ googleId: profile.id }).timeout(5000);
           if (!user) {
               user = new User({
                   googleId: profile.id,
@@ -45,12 +45,11 @@ let passportFunction = () => {
         return done(new Error("User data is missing or incomplete"));
     }
     done(null, { id: data.user.id, token: data.token });
-});
-
+  });
 
   passport.deserializeUser(async (data, done) => {
       try {
-          const user = await User.findById(data.id); 
+          const user = await User.findById(data.id).timeout(5000); 
           done(null, { user, token: data.token });
       } catch (err) {
           done(err, null); 
