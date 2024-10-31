@@ -16,6 +16,9 @@
             position: relative;
             font-family: sans-serif
         }
+        .bg-transparent{
+            background: transparent;
+        }
 
         .stickySection {
             position: fixed;
@@ -24,10 +27,9 @@
             right: 0;
             background-color: rgb(255, 255, 255);
             width: 50%;
-            padding: 10px;
+            padding: 0px 50px;
             margin: auto;
         }
-
         .widthM {
             width: 50%;
         }
@@ -198,15 +200,15 @@
     </nav>
 
     <div class="text-center stickySection pb-2">
-        <div class="rounded-5 mx-5 py-2 mt-3 bg-body-secondary d-flex justify-content-center align-items-center">
+        <div class="rounded-5 stickySection-2 mx-auto py-2 mt-3 bg-body-secondary d-flex justify-content-center align-items-center">
             <div class="loading-spinner me-1">
                 <i class="bi bi-arrow-clockwise"></i>
             </div>
-            <input type="text" id="items" class="w-75 bg-body-secondary fw-semibold pb-1 mt-1" placeholder="Message Bot"
+            <input type="text" id="items" class="w-75 bg-body-secondary fw-light pb-1" placeholder="Message Bot"
                 style="outline: none; border: none;" onkeypress="handleKeyPress(event)">
-            <button onclick="fetchData()" style="outline: none; border: none; background-color: white;"
-                class="border-none bg-body-secondary">
-                <i class="bi bi-search h5"></i>
+            <button onclick="fetchData()" style="outline: none; border: none; background-color: transparent;"
+                class="border-none bg-body-secondary bg-transparent">
+                <i class="bi bi-search h5 bg-transparent"></i>
             </button>
         </div>
     </div>
@@ -222,16 +224,13 @@
     </div>
     <script>
         function logout() {
-            // Function to delete specific cookies
             function deleteCookie(name) {
                 document.cookie = name + "=;expires=" + new Date(0).toUTCString() + ";path=/";
             }
 
-            // Delete specific cookies
             deleteCookie('token');
             deleteCookie('session_id');
 
-            // Show a confirmation message
             document.getElementById("message").innerText = "You have been logged out successfully. Cookies removed.";
         }
     </script>

@@ -38,7 +38,7 @@ router.get('/auth/google/callback',
       { expiresIn: '24h' }
     );
 
-    res.cookie('connect', token, { httpOnly: true, maxAge: 24 * 60 * 60 * 1000 }); // cookie expires in 24 hours
+    res.cookie('connect', token, { httpOnly: true, maxAge: 24 * 60 * 60 * 1000 });
 
     res.redirect('/');
   }
