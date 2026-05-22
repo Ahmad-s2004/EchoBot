@@ -97,8 +97,9 @@
             const spinner = document.querySelector('.loading-spinner');
             const dis = document.getElementById('dis')
             spinner.style.display = 'inline-block';
+            const apiKey = "<%= GEMINI_API_KEY %>";
             try {
-                const res = await fetch('https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-latest:generateContent?key=AIzaSyDIJtQJ9QbBayREVfWjzdIQbTkqj7Rdyrs', {
+                const res = await fetch(`${apiKey}`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'

@@ -22,7 +22,9 @@ let Auth = async (req, res, next) => {
 
 
 let mainHome = (req, res) => {
-    res.render('home');
+    res.render('home', {
+        GEMINI_API_KEY: process.env.GEMINI_API_KEY
+    });
 };
 
 let error = (req, res) => {
